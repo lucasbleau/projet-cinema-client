@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Accueil
+{% endblock %}
+
+{% block body %}
+
+    <h1 class="text-center m-5">Liste des films à l'affiche</h1>
+
+    <div class="row m-4">
+
+        {% for film in films %}
+
+            <div class="col-4">
+                <div class="card m-4">
+                    <div class="card-body">
+                        <h3 class="card-title text-center mb-5">{{ film.titreFilm }}</h3>
+                        <div class="d-flex justify-content-between">
+                            <p>Durée : {{ film.dureeFilm }}</p>
+                            <a href="#" class="btn btn-primary">Détail</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+{% endblock %}
