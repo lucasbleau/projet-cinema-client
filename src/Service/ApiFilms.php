@@ -24,12 +24,11 @@ class ApiFilms
         return $rep->toArray();
     }
 
-//    public function getFilmById(int $id): array{
-//        $rep = $this->httpClient->request(
-//            'GET',
-//            'http://localhost:8000/api/films/'.$id
-//            'http://172.16.213.1:8000/api/films/'.$id
-//        );
-//        return $rep->toArray();
-//    }
+    public function detailFilm(int $id) : array {
+        $rep = $this->httpClient->request(
+            'GET',
+            'http://172.16.205.126:8000/api/detail-film/'.$id
+        );
+        return $rep->toArray();
+    }
 }

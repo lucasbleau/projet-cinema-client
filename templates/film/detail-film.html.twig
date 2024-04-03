@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Accueil
+{% endblock %}
+
+{% block body %}
+
+    <a href="http://localhost:8001/film" class="m-4 btn btn-warning position-fixed">Retour</a>
+
+    <div class="d-flex justify-content-center">
+        <div class="w-50 text-center border border-info">
+
+            <ul class="d-flex justify-content-between">
+
+                {% for detail in detailFilm %}
+
+                    <div class="">
+
+                        <h1 class="m-5">{{ detail.titreFilm }}</h1>
+
+                        <h5 class="m-4">Id du film : {{ detail.id }}</h5>
+                        <h5 class="m-4">durée du film : {{ detail.dureeFilm }}</h5>
+                        <h5 class="m-4">Seances du film : </h5>
+
+                            <li>
+
+                                {% for seance in detail.seances %}
+
+
+                                    <div class="m-2 d-flex flex-row">
+                                        <p class="align-middle">{{ seance.dateProjection | format_datetime(pattern='dd/MM/y HH:mm') }} </p>
+                                        <p class="btn btn-primary">Réserver</p>
+                                    </div>
+
+
+                                {% endfor %}
+
+                            </li>
+                    </div>
+
+                {% endfor %}
+
+            </ul>
+
+        </div>
+    </div>
+
+{% endblock %}
