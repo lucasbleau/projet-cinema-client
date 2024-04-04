@@ -12,12 +12,12 @@
 
         {% for film in films %}
 
-            <div class="col-4">
+            <div class="col-12 col-md-4 col-sm-6">
                 <div class="card m-4">
                     <div class="card-body">
                         <h3 class="card-title text-center mb-5">{{ film.titreFilm }}</h3>
-                        <p>Durée : {{ film.dureeFilm }}</p>
-                        <a href="http://localhost:8001/detail-film/{{ film.id }}" class="btn btn-primary">Détail</a>
+                        <p> <b> Durée : </b>{{ film.dureeFilm }}</p>
+                        <a href="http://localhost:8001/detail-film/{{ film.id }}" class="btn btn-outline-primary">Détail</a>
                     </div>
                 </div>
             </div>

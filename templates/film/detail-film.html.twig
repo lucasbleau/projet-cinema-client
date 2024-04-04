@@ -6,43 +6,36 @@
 
 {% block body %}
 
-    <a href="http://localhost:8001/film" class="m-4 btn btn-warning position-fixed">Retour</a>
+    <a href="http://localhost:8001/film" class="m-4 btn btn-outline-primary position-fixed">Retour</a>
 
-    <div class="d-flex justify-content-center">
-        <div class="w-50 text-center border border-info">
-
-            <ul class="d-flex justify-content-between">
-
+    <div class="d-flex justify-content-center h-100">
+        <div class="w-50 text-center align-middle">
                 {% for detail in detailFilm %}
-
-                    <div class="">
-
+                    <div class="w-100 shadow align-middle rounded bg-light m-5 p-4">
                         <h1 class="m-5">{{ detail.titreFilm }}</h1>
-
-                        <h5 class="m-4">Id du film : {{ detail.id }}</h5>
-                        <h5 class="m-4">durée du film : {{ detail.dureeFilm }}</h5>
+                        <div>
+                            <h5 class="m-4">Id du film : </h5>
+                            <div>{{ detail.id }}</div>
+                        </div>
+                        <div>
+                            <h5 class="m-4">Durée du film : </h5>
+                            <div>{{ detail.dureeFilm }}</div>
+                        </div>
+                        <br>
+                        <br>
                         <h5 class="m-4">Seances du film : </h5>
-
-                            <li>
-
-                                {% for seance in detail.seances %}
-
-
-                                    <div class="m-2 d-flex flex-row">
-                                        <p class="align-middle">{{ seance.dateProjection | format_datetime(pattern='dd/MM/y HH:mm') }} </p>
-                                        <p class="btn btn-primary">Réserver</p>
-                                    </div>
-
-
-                                {% endfor %}
-
-                            </li>
+                        <table class="table w-50 mx-auto">
+                            {% for seance in detail.seances %}
+                                <tr class="m-2 text-center">
+                                    <td class="shadow">
+                                        <p class="m-0 align-middle d-inline">{{ seance.dateProjection | format_datetime(pattern='dd/MM/y HH:mm') }} </p>
+                                        <a href="" class="text-decoration-none mx-4 btn btn-outline-primary">Reserver</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
                     </div>
-
                 {% endfor %}
-
-            </ul>
-
         </div>
     </div>
 
