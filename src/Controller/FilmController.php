@@ -7,9 +7,21 @@ use App\Service\ConvertionHeure;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 class FilmController extends AbstractController
 {
+    /**
+     * @throws TransportExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws DecodingExceptionInterface
+     * @throws ClientExceptionInterface
+     */
     #[Route('/', name: 'app_accueil')]
     #[Route('/film', name: 'app_film')]
 
@@ -26,6 +38,14 @@ class FilmController extends AbstractController
             'films' => $filmsAffiche
         ]);
     }
+
+    /**
+     * @throws TransportExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws DecodingExceptionInterface
+     * @throws ClientExceptionInterface
+     */
 
     #[Route('/detail-film/{id}', name: 'app_detail-film')]
     public function details(ApiFilms $apiFilms, ConvertionHeure $convertionHeure,int $id): Response
