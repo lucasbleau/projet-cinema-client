@@ -28,11 +28,12 @@ class ApiFilms
      * @throws DecodingExceptionInterface
      * @throws ClientExceptionInterface
      */
-    public function ListerFilmsAffiche() : array{
+    public function ListerFilmsAffiche() : array
+    {
         $rep = $this->httpClient->request(
             'GET',
-            // 'http://172.16.205.126:8000/api/listerFilmsAffiche'
-            'http://192.168.1.177:8000/api/listerFilmsAffiche'
+            'http://172.16.205.126:8000/api/listerFilmsAffiche'
+            // 'http://192.168.1.177:8000/api/listerFilmsAffiche'
 
         );
         return $rep->toArray();
@@ -45,11 +46,12 @@ class ApiFilms
      * @throws DecodingExceptionInterface
      * @throws ClientExceptionInterface
      */
-    public function detailFilm(int $id) : array {
+    public function detailFilm(int $id) : array
+    {
         $rep = $this->httpClient->request(
             'GET',
-            // 'http://172.16.205.126:8000/api/detail-film/'.$id
-            'http://192.168.1.177:8000/api/detail-film/'.$id
+            'http://172.16.205.126:8000/api/detail-film/'.$id
+            // 'http://192.168.1.177:8000/api/detail-film/'.$id
         );
         return $rep->toArray();
     }

@@ -6,29 +6,25 @@
 
 {% block body %}
 
-    <a href="http://localhost:8001/film" class="m-4 btn btn-outline-primary position-fixed">Retour</a>
-
     <div class="d-flex justify-content-center h-100">
         <div class="w-50 text-center align-middle">
                 {% for detail in detailFilm %}
                     <div class="w-100 shadow align-middle rounded bg-light m-5 p-4">
                         <h1 class="m-5">{{ detail.titreFilm }}</h1>
                         <div>
-                            <h5 class="m-4">Id du film : </h5>
-                            <div>{{ detail.id }}</div>
-                        </div>
-                        <div>
                             <h5 class="m-4">Durée du film : </h5>
                             <div>{{ detail.dureeFilm }}</div>
                         </div>
-                        <br>
                         <br>
                         <h5 class="m-4">Seances du film : </h5>
                         <table class="table w-50 mx-auto">
                             {% for seance in detail.seances %}
                                 <tr class="m-2 text-center">
                                     <td class="shadow">
-                                        <p class="m-0 align-middle d-inline">{{ seance.dateProjection | format_datetime(pattern='dd/MM/y HH:mm') }} </p>
+                                        <div class="m-2"><u>{{ seance.dateProjection | format_datetime(pattern='dd/MM/y HH:mm') }} </u> </div>
+                                        <div class="m-2"><b> tarif normal : </b>{{ seance.tarifNormal }} euros </div>
+                                        <div class="m-2"><b> tarif réduit : </b>{{ seance.tarifReduit }} euros </div>
+                                        {# <div class="m-2"><b> Salle : </b>{{ seance.Salle }} </div> #}
                                         <a href="" class="text-decoration-none mx-4 btn btn-outline-primary">Reserver</a>
                                     </td>
                                 </tr>

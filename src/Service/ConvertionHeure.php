@@ -12,12 +12,14 @@ class ConvertionHeure
     {
         $result = "";
 
-        if ($minute > 59) {
+        if ($minute > 59)
+        {
             $heures = floor($minute / 60);
             $result .= $heures . " heures et ";
         }
 
-        if ($minute) {
+        if ($minute)
+        {
             $minutesRestantes = $minute % 60;
             $result .= $minutesRestantes . " minutes";
         }
