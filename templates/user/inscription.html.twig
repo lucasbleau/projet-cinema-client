@@ -30,9 +30,30 @@
 
         </div>
 
+        <div class="d-flex flex-column m-4" style="width: 50vh">
+
+            <div class="text-center m-2">
+                {{ form_label(form.confirmPassword) }}
+            </div>
+
+            {{ form_widget(form.confirmPassword) }}
+
+        </div>
+
+
         {% if form_errors(form.email) is not empty %}
             <div class="alert alert-danger m-4" style="max-width: 50vh">
                 {{ form_errors(form.email) }}
+            </div>
+            {% else %}
+            <div class="alert alert-warning m-4" style="max-width: 50vh">
+                <div>Votre mot de passe doit contenir au moins :</div>
+                <ul>
+                    <li>Une minuscule</li>
+                    <li>Une majuscule</li>
+                    <li>Un caractère spécial</li>
+                    <li>Un chiffre</li>
+                </ul>
             </div>
         {% endif %}
 

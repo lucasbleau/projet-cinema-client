@@ -6,14 +6,33 @@
 
 {% block body %}
 
+    {% block javascripts %}
+        {{ parent() }}
+        <script>
+            // Fonction pour masquer le message de succès après un délai spécifié
+            setTimeout(function() {
+                document.querySelectorAll('.alert-success').forEach(function(element) {
+                    element.style.display = 'none';
+                });
+            }, 3000); // 3000 millisecondes équivalent à 3 secondes
+        </script>
+        {% block importmap %}{{ importmap('app') }}{% endblock %}
+    {% endblock %}
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success ">
+            {{ message }}
+        </div>
+    {% endfor %}
+
     <h1 class="text-center m-5">Liste des films à l'affiche</h1>
 
     <div class="row m-4">
 
         {% for film in films %}
 
-            <div class="col-12 col-md-4 col-sm-6">
-                <div class="card m-4">
+            <div class="col-12 col-md-4 col-sm-6 ">
+                <div class="card m-4 shadow">
                     <div class="card-body">
                         <h3 class="card-title text-center mb-5">{{ film.titreFilm }}</h3>
                         <p> <b> Durée : </b>{{ film.dureeFilm }}</p>

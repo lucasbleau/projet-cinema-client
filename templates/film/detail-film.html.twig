@@ -24,7 +24,8 @@
                                         <div class="m-2"><u>{{ seance.dateProjection | format_datetime(pattern='dd/MM/y HH:mm') }} </u> </div>
                                         <div class="m-2"><b> tarif normal : </b>{{ seance.tarifNormal }} euros </div>
                                         <div class="m-2"><b> tarif réduit : </b>{{ seance.tarifReduit }} euros </div>
-                                        {# <div class="m-2"><b> Salle : </b>{{ seance.Salle }} </div> #}
+                                        <div class="m-2"><b> Salle : </b>{{ seance.Salle.nomSalle }} </div>
+                                        <div class="m-2"><b> Nombre de places : </b>{{ seance.Salle.nombresPlaces }} </div>
                                         <a href="" class="text-decoration-none mx-4 btn btn-outline-primary">Reserver</a>
                                     </td>
                                 </tr>

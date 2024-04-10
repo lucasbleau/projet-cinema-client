@@ -23,10 +23,19 @@ class UserController extends AbstractController
             $donnees = $form->getData();
             $email = $donnees["email"];
             $password = $donnees["password"];
-            $response = $apiUser->inscription($email,$password);
+            $confirm = $donnees["confirmPassword"];
+            if ($password == $confirm)
+            {
+                $response = $apiUser->inscription($email, $password);
+            }
+            else
+            {
+                $response["erreur"] = "Les mots de passes ne sont pas identiques !" ;
+            }
 
             if (!isset($response["erreur"]))
             {
+                $this->addFlash('success', 'Compte Créé !');
                 return $this->redirectToRoute('app_accueil');
             }
             else
