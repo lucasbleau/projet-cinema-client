@@ -32,9 +32,9 @@ class ApiFilms
     {
         $rep = $this->httpClient->request(
             'GET',
-            // 'http://172.16.205.126:8000/api/listerFilmsAffiche'
-            'http://192.168.1.177:8000/api/listerFilmsAffiche',
-            ['headers' => ['Content-Type' => 'application/json'], 'verify_peer' => false, 'verify_host' => false]
+            'http://172.16.205.126:8000/api/listerFilmsAffiche'
+//            'http://192.168.1.177:8000/api/listerFilmsAffiche',
+//            ['headers' => ['Content-Type' => 'application/json'], 'verify_peer' => false, 'verify_host' => false]
         );
         return $rep->toArray();
     }
@@ -50,9 +50,9 @@ class ApiFilms
     {
         $rep = $this->httpClient->request(
             'GET',
-            // 'http://172.16.205.126:8000/api/detail-film/'.$id
-            'http://192.168.1.177:8000/api/detail-film/'.$id,
-            ['headers' => ['Content-Type' => 'application/json'], 'verify_peer' => false, 'verify_host' => false]
+             'http://172.16.205.126:8000/api/detail-film/'.$id
+//            'http://192.168.1.177:8000/api/detail-film/'.$id,
+//            ['headers' => ['Content-Type' => 'application/json'], 'verify_peer' => false, 'verify_host' => false]
         );
         return $rep->toArray();
     }

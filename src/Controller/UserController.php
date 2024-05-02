@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends AbstractController
 {
     #[Route('/inscription', name: 'app_inscription')]
-    public function inscription(ApiUser $apiUser,Request $request, Connecter $connecter, SessionInterface $session): Response
+    public function inscription(ApiUser $apiUser,Request $request, SessionInterface $session, Connecter $connecter): Response
     {
         $form = $this->createForm(InscriptionFormType::class);
         $form->handleRequest($request);
@@ -26,7 +26,6 @@ class UserController extends AbstractController
             $email = $donnees["email"];
             $password = $donnees["password"];
             $confirm = $donnees["confirmPassword"];
-
             if ($password == $confirm) {
                 $response = $apiUser->inscription($email, $password);
             } else {
@@ -37,7 +36,7 @@ class UserController extends AbstractController
                 $this->addFlash('success', 'Compte Créé !');
                 return $this->redirectToRoute('app_accueil');
             } else {
-                $form->get('email')->addError(new FormError($response["erreur"]));
+                $form->addError(new FormError($response["erreur"]));
             }
         }
 
@@ -65,17 +64,15 @@ class UserController extends AbstractController
             if (isset($response['token'])) {
                 // ajouter dans la session le token
                 $session->set('token', $response['token']);
-
                 $this->addFlash('success', 'Connexion réussie !');
                 return $this->redirectToRoute('app_accueil');
             } else {
-                $errorMessage = $response['erreur'] ?? 'Une erreur est survenue lors de la connexion.';
-                $this->addFlash('error', $errorMessage);
+                $form->addError(new FormError($response["erreur"]));
             }
         }
         // Afficher le formulaire de connexion
         return $this->render('user/connexion.html.twig', [
-            'form' => $form->createView(),
+            'form' => $form,
             'connect' => $connecter->tokenExists($session)
         ]);
     }
