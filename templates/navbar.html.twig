@@ -3,22 +3,35 @@
         <button class="navbar-toggler m-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarScroll">
-            <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-                <li class="nav-item m-2">
-                    <a class="btn btn-light" aria-current="page" href="{{ path('app_accueil') }}">Liste des films</a>
-                </li>
-            </ul>
+        <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarScroll">
+            <div class="col-4">
+                <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                    <li class="nav-item m-2">
+                        <a class="btn btn-light" aria-current="page" href="{{ path('app_accueil') }}">Liste des films</a>
+                    </li>
+                </ul>
+            </div>
+
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success shadow col-4 m-auto text-center">
+                    {{ message }}
+                </div>
+            {% endfor %}
+
             {% if connect == true %}
-                <div class="nav-item m-2">
-                    <a class="btn btn-light" href="{{ path('app_deconnexion') }}">Se déconnecter</a>
+                <div class="d-flex col-4 justify-content-end">
+                    <div class="nav-item m-2">
+                        <a class="btn btn-light" href="{{ path('app_deconnexion') }}">Se déconnecter</a>
+                    </div>
                 </div>
             {% else %}
-                <div class="nav-item m-2">
-                    <a class="btn btn-light" href="{{ path('app_inscription') }}">S'inscrire </a>
-                </div>
-                <div class="nav-item m-2">
-                    <a class="btn btn-light" href="{{ path('app_connexion') }}">Se connecter </a>
+                <div class="d-flex col-4 justify-content-end">
+                    <div class="nav-item m-2">
+                        <a class="btn btn-light" href="{{ path('app_inscription') }}">S'inscrire </a>
+                    </div>
+                    <div class="nav-item m-2">
+                        <a class="btn btn-light" href="{{ path('app_connexion') }}">Se connecter </a>
+                    </div>
                 </div>
             {% endif %}
         </div>

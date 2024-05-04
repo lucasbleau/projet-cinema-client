@@ -24,17 +24,17 @@ class ApiUser
         try {
             $responseAPI = $this->httpClient->request(
                 'POST',
-//                'http://192.168.1.177:8000/api/inscription',
-                'http://172.16.205.126:8000/api/inscription',
+                'http://192.168.1.177:8000/api/inscription',
+//                'http://172.16.205.126:8000/api/inscription',
 
-                ['json' => $donnees]
+//                ['json' => $donnees]
 
-//                [
-//                    'json' => $donnees,
-//                    'headers' => ['Content-Type' => 'application/json'],
-//                    'verify_peer' => false,
-//                    'verify_host' => false
-//                ]
+                [
+                    'json' => $donnees,
+                    'headers' => ['Content-Type' => 'application/json'],
+                    'verify_peer' => false,
+                    'verify_host' => false
+                ]
             );
             return $responseAPI->toArray();
         } catch (ClientExceptionInterface $exception) {
@@ -54,17 +54,17 @@ class ApiUser
         try {
             $response = $this->httpClient->request(
                 'POST',
-//                'http://192.168.1.177:8000/api/connexion',
-                'http://172.16.205.126:8000/api/connexion',
+                'http://192.168.1.177:8000/api/connexion',
+//                'http://172.16.205.126:8000/api/connexion',
 
-            ['json' => $donnees]
+//            ['json' => $donnees]
 
-//                [
-//                    'json' => $donnees,
-//                    'headers' => ['Content-Type' => 'application/json'],
-//                    'verify_peer' => false,
-//                    'verify_host' => false
-//                ]
+                [
+                    'json' => $donnees,
+                    'headers' => ['Content-Type' => 'application/json'],
+                    'verify_peer' => false,
+                    'verify_host' => false
+                ]
             );
             $data = $response->toArray();
             return $data;
