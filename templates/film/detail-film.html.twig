@@ -26,7 +26,13 @@
                                         <div class="m-2"><b> tarif réduit : </b>{{ seance.tarifReduit }} euros </div>
 {#                                        <div class="m-2"><b> Salle : </b>{{ seance.Salle.nomSalle }} </div>#}
 {#                                        <div class="m-2"><b> Nombre de places : </b>{{ seance.Salle.nombresPlaces }} </div>#}
-                                        <a href="" class="text-decoration-none mx-4 btn btn-outline-primary">Reserver</a>
+                                        {% if connect == true %}
+                                            <div class="form">
+                                                <a href="{{ path('app_reservation',{'idSeance' : seance.id }) }}">
+                                                    <button type="submit" class="btn btn-primary" >Reserver</button>
+                                                </a>
+                                            </div>
+                                        {% endif %}
                                     </td>
                                 </tr>
                             {% endfor %}
