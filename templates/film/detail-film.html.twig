@@ -8,32 +8,82 @@
 
     <div class="d-flex justify-content-center h-100">
         <div class="w-50 text-center align-middle">
-                {% for detail in detailFilm %}
-                    <div class="w-100 shadow align-middle rounded bg-light m-5 p-4">
-                        <h1 class="m-5">{{ detail.titreFilm }}</h1>
-                        <div>
-                            <h5 class="m-4">Durée du film : </h5>
-                            <div>{{ detail.dureeFilm }}</div>
-                        </div>
-                        <br>
-                        <h5 class="m-4">Seances du film : </h5>
-                        <table class="table w-50 mx-auto">
-                            {% for seance in detail.seances %}
-                                <tr class="m-2 text-center">
-                                    <td class="shadow">
-                                        <div class="m-2"><u>{{ seance.dateProjection | format_datetime(pattern='dd/MM/y HH:mm') }} </u> </div>
-                                        <div class="m-2"><b> tarif normal : </b>{{ seance.tarifNormal }} euros </div>
-                                        <div class="m-2"><b> tarif réduit : </b>{{ seance.tarifReduit }} euros </div>
-{#                                        <div class="m-2"><b> Salle : </b>{{ seance.Salle.nomSalle }} </div>#}
-{#                                        <div class="m-2"><b> Nombre de places : </b>{{ seance.Salle.nombresPlaces }} </div>#}
-                                        <a href="" class="text-decoration-none mx-4 btn btn-outline-primary">Reserver</a>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                        </table>
+            {% for detail in detailFilm %}
+                <div class="w-100 shadow align-middle rounded bg-light m-5 p-4">
+                    <h1 class="m-5">{{ detail.titreFilm }}</h1>
+                    <div>
+                        <h5 class="m-4">Durée du film : </h5>
+                        <div>{{ detail.dureeFilm }}</div>
                     </div>
-                {% endfor %}
+                    <br>
+                    <h5 class="m-4">Séances du film : </h5>
+                    <table class="table w-50 mx-auto">
+                        {% for seance in detail.seances %}
+                            <tr class="m-2 text-center">
+                                <td class="shadow">
+                                    <div class="m-2"><u>{{ seance.dateProjection | format_datetime(pattern='dd/MM/y HH:mm') }} </u> </div>
+                                    <div class="m-2"><b> tarif normal : </b>{{ seance.tarifNormal }} euros </div>
+                                    <div class="m-2"><b> tarif réduit : </b>{{ seance.tarifReduit }} euros </div>
+                                    {% if connect == true %}
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-{{ seance.id }}">
+                                            Réserver une séance
+                                        </button>
+
+                                        <div class="modal fade" id="modal-{{ seance.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="exampleModalLabel">{{ detail.titreFilm }}</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form action="{{ path('app_detail-film', {'id': detail.id}) }}" method="post">
+                                                            <input type="hidden" name="idSeance" value="{{ seance.id }}">
+                                                            <div class="mb-3">
+                                                                <label for="nbPlace-{{ seance.id }}" class="form-label">Nombre de place </label>
+                                                                <input type="number" name="nbPlace" class="form-control" id="nbPlace-{{ seance.id }}" max="20" min="1" value="1" oninput="calculateTotal({{ seance.tarifNormal }}, {{ seance.id }})">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="total-{{ seance.id }}" class="form-label">Total</label>
+                                                                <input type="text" class="form-control" id="total-{{ seance.id }}" disabled value="">
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="submit" class="btn btn-primary">Réserver</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            {% endfor %}
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            // Boucle pour chaque séance et calculer le total initial
+            {% for detail in detailFilm %}
+            {% for seance in detail.seances %}
+            calculateTotal({{ seance.tarifNormal }}, {{ seance.id }});
+            {% endfor %}
+            {% endfor %}
+        });
+
+        function calculateTotal(tarif, seanceId) {
+            const nbPlaceInput = document.getElementById('nbPlace-' + seanceId);
+            const totalInput = document.getElementById('total-' + seanceId);
+
+            const nbPlace = nbPlaceInput.value;
+            const total = nbPlace * tarif;
+
+            totalInput.value = total.toFixed(2) + ' euros';
+        }
+    </script>
 
 {% endblock %}
